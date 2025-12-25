@@ -1,0 +1,18 @@
+export const specialties = [
+  { id: "0bb80083-7163-4bd4-8dea-4e5c985eba33", name: "Gynecological Surgery", name_fa: "جراحی زنان" },
+  { id: "0ca9d3b3-97c4-45c1-abf0-ff435a293b35", name: "Medical Education", name_fa: "آموزش پزشکی" },
+  { id: "0f08e901-dd34-4c6b-8264-c0679c848ad0", name: "Obstetrics and Gynecology", name_fa: "زنان و زایمان" },
+  { id: "0fa2481d-55fa-448e-b11b-aceb4160f54e", name: "Pediatric Pulmonology", name_fa: "ریه کودکان" },
+  { id: "112ae61e-957c-49be-bc85-85394f4328d9", name: "Internal Medicine", name_fa: "داخلی" },
+  { id: "18c0abee-330b-4e8d-ad2d-a56122539783", name: "Medical Virology", name_fa: "ویروس‌شناسی پزشکی" },
+  { id: "21b861ef-f16c-4a8c-8f02-c9cecdd47c4c", name: "Ophthalmic Surgery", name_fa: "جراحی چشم" },
+  { id: "2500bab1-7a7f-4f07-a9fa-55c221dd9a0a", name: "Urological Surgery", name_fa: "جراحی کلیه و مجاری ادراری" },
+  { id: "3611cbc2-8b8g-5g18-ba0b-66d332ee0b1b", name: "Cardiology", name_fa: "قلب و عروق" },
+  { id: "4722dcd3-9c9h-6h29-cb1c-77e443ff1c2c", name: "Dermatology", name_fa: "پوست و مو" },
+  { id: "5833ede4-0d0i-7i30-dc2d-88f554gg2d3d", name: "General Surgery", name_fa: "جراحی عمومی" },
+  { id: "6944fef5-1e1j-8j41-ed3e-99g665hh3e4e", name: "Neurology", name_fa: "مغز و اعصاب" },
+  { id: "7a55gfg6-2f2k-9k52-fe4f-00h776ii4f5f", name: "Orthopedics", name_fa: "ارتوپدی" },
+  { id: "8b66hgh7-3g3l-0l63-gf5g-11i887jj5g6g", name: "Pediatrics", name_fa: "کودکان" },
+  { id: "9c77ihi8-4h4m-1m74-hg6h-22j998kk6h7h", name: "Psychiatry", name_fa: "روانپزشکی" },
+  { id: "0d88jij9-5i5n-2n85-ih7i-33k009ll7i8i", name: "Radiology", name_fa: "رادیولوژی" },
+]

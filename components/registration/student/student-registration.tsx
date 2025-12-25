@@ -1,0 +1,121 @@
+"use client"
+
+import { useState } from "react"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
+import { StepProgress } from "../step-progress"
+import type { StudentData } from "@/lib/types"
+import { BasicInfoStep } from "./basic-info-step"
+import { IdentityInfoStep } from "./identity-info-step"
+import { LocationStep } from "./location-step"
+import { EducationInfoStep } from "./education-info-step"
+import { DocumentsStep } from "./documents-step"
+import { ConfirmationStep } from "./confirmation-step"
+import { ChevronRight, ChevronLeft } from "lucide-react"
+
+const steps = ["اطلاعات پایه", "اطلاعات هویتی", "موقعیت", "اطلاعات تحصیلی", "مدارک", "تأیید نهایی"]
+
+export function StudentRegistration() {
+  const [currentStep, setCurrentStep] = useState(1)
+  const [formData, setFormData] = useState<Partial<StudentData>>({})
+  const [errors, setErrors] = useState<Record<string, string>>({})
+
+  const updateFormData = (data: Partial<StudentData>) => {
+    setFormData((prev) => ({ ...prev, ...data }))
+  }
+
+  const validateStep = (): boolean => {
+    const newErrors: Record<string, string> = {}
+
+    switch (currentStep) {
+      case 1:
+        if (!formData.firstName) newErrors.firstName = "نام الزامی است"
+        if (!formData.lastName) newErrors.lastName = "نام خانوادگی الزامی است"
+        if (!formData.username) newErrors.username = "نام کاربری الزامی است"
+        if (!formData.password) newErrors.password = "رمز عبور الزامی است"
+        break
+      case 2:
+        if (!formData.nationalId) newErrors.nationalId = "کد ملی الزامی است"
+        if (!formData.birthDate) newErrors.birthDate = "تاریخ تولد الزامی است"
+        if (!formData.gender) newErrors.gender = "جنسیت الزامی است"
+        break
+      case 3:
+        if (!formData.mobile) newErrors.mobile = "شماره موبایل الزامی است"
+        if (!formData.country) newErrors.country = "انتخاب کشور الزامی است"
+        if (!formData.province) newErrors.province = "انتخاب استان الزامی است"
+        if (!formData.city) newErrors.city = "انتخاب شهر الزامی است"
+        break
+      case 4:
+        if (!formData.university) newErrors.university = "دانشگاه الزامی است"
+        if (!formData.major) newErrors.major = "رشته الزامی است"
+        if (!formData.degree) newErrors.degree = "مقطع الزامی است"
+        if (!formData.startYear) newErrors.startYear = "سال شروع الزامی است"
+        break
+      case 5:
+        if (!formData.studentCardFile) newErrors.studentCardFile = "کارت دانشجویی الزامی است"
+        if (!formData.profileImage) newErrors.profileImage = "عکس پروفایل الزامی است"
+        break
+    }
+
+    setErrors(newErrors)
+    return Object.keys(newErrors).length === 0
+  }
+
+  const handleNext = () => {
+    if (validateStep()) {
+      setCurrentStep((prev) => Math.min(prev + 1, steps.length))
+    }
+  }
+
+  const handlePrevious = () => {
+    setCurrentStep((prev) => Math.max(prev - 1, 1))
+  }
+
+  const handleSubmit = async () => {
+    console.log("[v0] Submitting student registration:", formData)
+    // Here you would submit to your API
+    alert("ثبت‌نام با موفقیت انجام شد!")
+  }
+
+  return (
+    <div className="min-h-screen bg-background py-8 px-4">
+      <div className="max-w-4xl mx-auto space-y-8">
+        <div className="text-center space-y-2">
+          <h1 className="text-3xl font-bold text-foreground">ثبت‌نام دانشجو پزشکی</h1>
+          <p className="text-muted-foreground">لطفاً اطلاعات خود را با دقت وارد کنید</p>
+        </div>
+
+        <StepProgress steps={steps} currentStep={currentStep} />
+
+        <Card>
+          <CardHeader>
+            <CardTitle>{steps[currentStep - 1]}</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            {currentStep === 1 && <BasicInfoStep data={formData} onChange={updateFormData} errors={errors} />}
+            {currentStep === 2 && <IdentityInfoStep data={formData} onChange={updateFormData} errors={errors} />}
+            {currentStep === 3 && <LocationStep data={formData} onChange={updateFormData} errors={errors} />}
+            {currentStep === 4 && <EducationInfoStep data={formData} onChange={updateFormData} errors={errors} />}
+            {currentStep === 5 && <DocumentsStep data={formData} onChange={updateFormData} errors={errors} />}
+            {currentStep === 6 && <ConfirmationStep data={formData} />}
+
+            <div className="flex justify-between pt-6">
+              <Button variant="outline" onClick={handlePrevious} disabled={currentStep === 1}>
+                <ChevronRight className="h-4 w-4 ml-2" />
+                قبلی
+              </Button>
+              {currentStep < steps.length ? (
+                <Button onClick={handleNext}>
+                  بعدی
+                  <ChevronLeft className="h-4 w-4 mr-2" />
+                </Button>
+              ) : (
+                <Button onClick={handleSubmit}>تأیید و ثبت‌نام</Button>
+              )}
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  )
+}
